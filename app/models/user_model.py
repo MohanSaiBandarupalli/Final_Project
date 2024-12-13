@@ -2,6 +2,7 @@ from builtins import bool, int, str
 from datetime import datetime
 from enum import Enum
 import uuid
+from sqlalchemy import UniqueConstraint
 from sqlalchemy import (
     Column, String, Integer, DateTime, Boolean, func, Enum as SQLAlchemyEnum
 )
@@ -54,8 +55,8 @@ class User(Base):
     __mapper_args__ = {"eager_defaults": True}
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    nickname: Mapped[str] = Column(String(50), unique=True, nullable=False, index=True)
-    email: Mapped[str] = Column(String(255), unique=True, nullable=False, index=True)
+    nickname: Mapped[str] = Column(String(50), unique=True, nullable=False, index=True)  # Enforces uniqueness
+    email: Mapped[str] = Column(String(255), unique=True, nullable=False, index=True)   # Enforces uniqueness
     first_name: Mapped[str] = Column(String(100), nullable=True)
     last_name: Mapped[str] = Column(String(100), nullable=True)
     bio: Mapped[str] = Column(String(500), nullable=True)
@@ -74,6 +75,8 @@ class User(Base):
     email_verified: Mapped[bool] = Column(Boolean, default=False, nullable=False)
     hashed_password: Mapped[str] = Column(String(255), nullable=False)
 
+    # Unique constraint for nickname and email
+    __table_args__ = (UniqueConstraint("nickname", "email", name="unique_nickname_email"),)
 
     def __repr__(self) -> str:
         """Provides a readable representation of a user object."""

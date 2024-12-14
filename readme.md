@@ -1,3 +1,10 @@
+# **Final Project: User Management System**
+
+## **Project Objective**
+
+The User Management System project aimed to develop a secure, feature-rich application for managing user accounts, roles, and permissions. It included functionalities such as user registration, authentication, role-based access control (RBAC), and advanced features like user search and filtering. The project emphasized modern development practices, integrating CI/CD pipelines, Dockerized deployment, and comprehensive testing. With a focus on scalability and security, the system was designed to meet real-world web application standards while offering a seamless user and administrator experience. The successful deployment to DockerHub highlighted the project's readiness for production.
+
+
 ## Issues Fixed
 
 The following issues were resolved:

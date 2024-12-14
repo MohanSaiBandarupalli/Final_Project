@@ -1,55 +1,154 @@
+## Issues Fixed
+
+The following issues were resolved:
+
+1. **[Fix Docker and Workflow Files](https://github.com/MohanSaiBandarupalli/Final_Project/issues/1)**
+   - Resolved multiple issues in Dockerfile and GitHub Actions Workflow files to enable proper CI/CD pipeline functionality.
+   - Fixed environment variables and dependencies in the Dockerfile to ensure the application builds and runs correctly in containerized environments.
+   - Updated the workflow YAML file to include steps for linting, testing, and deployment, enabling automated builds and testing on every push.
+   - Verified the fixes by successfully deploying the project to DockerHub and running end-to-end tests.
+
+2. **[Fix User ID and Email](https://github.com/MohanSaiBandarupalli/Final_Project/issues/5)**
+   - Fixed issues related to incorrect handling of user ID and email validation during user creation and update.
+   - Updated validation logic to ensure user IDs are unique and emails are properly formatted and validated.
+   - Added error messages for invalid data and unit tests to verify the integrity of user ID and email validations.
+
+3. **[Fix Password Validation](https://github.com/MohanSaiBandarupalli/Final_Project/issues/7)**
+   - Enhanced the password validation logic to enforce strong password policies, including minimum length, complexity (e.g., alphanumeric and special characters), and no reuse of old passwords.
+   - Updated the user registration and password reset endpoints to incorporate the new validation rules.
+   - Added comprehensive tests to ensure password validation works correctly in various scenarios.
+
+4. **[Fix Token Expiry Handling for Endpoints](https://github.com/MohanSaiBandarupalli/Final_Project/issues/9)**
+   - Addressed an issue with expired tokens causing endpoint failures. 
+   - Improved the token validation mechanism to check for token expiry and return appropriate error responses.
+   - Added a retry mechanism for generating new tokens when users are authenticated but their tokens have expired.
+
+5. **[Fix Unique Constraints for Nickname and Email in User Model](https://github.com/MohanSaiBandarupalli/Final_Project/issues/11)**
+   - Added unique constraints to the `nickname` and `email` fields in the user model to prevent duplicate entries during user creation.
+   - Updated the database schema and added error-handling logic to return appropriate error messages when duplicate entries are attempted.
+   - Implemented tests to verify the uniqueness constraint works as intended.
+
+6. **[Fix Professional Field Not Updating](https://github.com/MohanSaiBandarupalli/Final_Project/issues/13)**
+   - Resolved an issue where the `is_professional` field in the user model was not updating correctly. 
+   - The API endpoint responsible for updating user data was reviewed, and the field update logic was fixed to ensure accurate updates to the database.
+   - Added unit tests to validate the successful update of the `is_professional` field.
+
+     
+
+## Description for Feature : User Search and Filtering
+
+#### **Added New Feature:** [Feature Link: ](https://github.com/MohanSaiBandarupalli/Final_Project/pull/15)
+
+The **User Search and Filtering Feature** enhances the User Management System by providing administrators with the ability to efficiently locate and manage users. This feature introduces flexible search and filtering options to improve the overall usability of the system.
+
+#### **Key Functionalities:**
+- **Search Capabilities:** Administrators can search users by partial matches on `username` and `email`.
+- **Filtering Options:** Users can be filtered by `role` (e.g., USER, MANAGER, ADMIN), `account_status` (e.g., ACTIVE, INACTIVE), and registration date ranges (`start_date` and `end_date`).
+- **Modular Design:** Implements a reusable service-layer logic for query execution to ensure consistency and scalability.
+
+#### **Benefits:**
+- Simplifies user management for administrators by enabling targeted searches.
+- Optimizes database queries for better performance when handling large datasets.
+- Lays the groundwork for future enhancements like full-text search or integration with advanced search solutions.
+
+This feature is fully tested, integrated into the API.
 
 
-# The User Management System Final Project: Your Epic Coding Adventure Awaits! 🎉✨🔥
+## Testing & QA
 
-## Introduction: Buckle Up for the Ride of a Lifetime 🚀🎬
+#### Added 10 test cases: [Test Cases Link](https://github.com/MohanSaiBandarupalli/Final_Project/blob/main/tests/test_api/test_users.py)
 
-Welcome to the User Management System project - an epic open-source adventure crafted by the legendary Professor Keith Williams for his rockstar students at NJIT! 🏫👨‍🏫⭐ This project is your gateway to coding glory, providing a bulletproof foundation for a user management system that will blow your mind! 🤯 You'll bridge the gap between the realms of seasoned software pros and aspiring student developers like yourselves. 
+1. **Test 1: Create User**  
+   - Validates the creation of users and the assignment of appropriate roles (ADMIN for the first user, AUTHENTICATED for subsequent users). Also ensures email verification is triggered.
 
-### [Instructor Video - Project Overview and Tips](https://youtu.be/gairLNAp6mA) 🎥
+2. **Test 2: Get User by Email** 
+   - Tests fetching a user by a valid email from the database.
 
-- [Introduction to the system features and overview of the project - please read](system_documentation.md) 📚
-- [Project Setup Instructions](setup.md) ⚒️
-- [Features to Select From](features.md) 🛠️
-- [About the Project](about.md)🔥🌟
+3. **Test 3: Get User by Invalid Email**  
+   - Validates that fetching a user with an invalid email returns `None`.
 
-## Goals and Objectives: Unlock Your Coding Superpowers 🎯🏆🌟
+4. **Test 4: Get User by ID**  
+   - Tests fetching a user by their valid unique ID.
 
-Get ready to ascend to new heights with this legendary project:
+5. **Test 5: Get User by Invalid ID**  
+   - Validates that fetching a user with an invalid ID (UUID) returns `None`.
 
-1. **Practical Experience**: Dive headfirst into a real-world codebase, collaborate with your teammates, and contribute to an open-source project like a seasoned pro! 💻👩‍💻🔥
-2. **Quality Assurance**: Develop ninja-level skills in identifying and resolving bugs, ensuring your code quality and reliability are out of this world. 🐞🔍⚡
-3. **Test Coverage**: Write additional tests to cover edge cases, error scenarios, and important functionalities - leave no stone unturned and no bug left behind! ✅🧪🕵️‍♂️
-4. **Feature Implementation**: Implement a brand new, mind-blowing feature and make your epic mark on the project, following best practices for coding, testing, and documentation like a true artisan. ✨🚀🎆
-5. **Collaboration**: Foster teamwork and collaboration through code reviews, issue tracking, and adhering to contribution guidelines - teamwork makes the dream work, and together you'll conquer worlds! 🤝💪🌍
-6. **Industry Readiness**: Prepare for the software industry by working on a project that simulates real-world development scenarios - level up your skills to super hero status  and become an unstoppable coding force! 🔝🚀🏆⚡
+6. **Test 6: Update User Role**  
+   - Tests updating a user’s role (e.g., changing from AUTHENTICATED to ADMIN).
 
-## Submission and Grading: Your Chance to Shine 📝✏️📈
+7. **Test 7: Lock User Account**  
+   - Validates locking a user account to restrict access.
 
-1. **Reflection Document**: Submit a 1-2 page Word document reflecting on your learnings throughout the course and your experience working on this epic project. Include links to the closed issues for the **5 QA issues, 10 NEW tests, and 1 Feature** you'll be graded on. Make sure your project successfully deploys to DockerHub and include a link to your Docker repository in the document - let your work speak for itself! 📄🔗💥
+8. **Test 8: Unlock User Account**  
+   - Ensures unlocking a previously locked user account restores access.
 
-2. **Commit History**: Show off your consistent hard work through your commit history like a true coding warrior. **Projects with less than 10 commits will get an automatic 0 - ouch!** 😬⚠️ A significant part of your project's evaluation will be based on your use of issues, commits, and following a professional development process like a boss - prove your coding prowess! 💻🔄🔥
+9. **Test 9: Delete User**  
+   - Tests the deletion of a user and ensures the operation returns `True`.
 
-3. **Deployability**: Broken projects that don't deploy to Dockerhub or pass all the automated tests on GitHub actions will face point deductions - nobody likes a buggy app! 🐞☠️ Show the world your flawless coding skills!
+10. **Test 10: Check Password Validity**  
+    - Validates password rules, ensuring compliance with security requirements like length, special characters, uppercase, and lowercase letters.
 
-## Managing the Project Workload: Stay Focused, Stay Victorious ⏱️🧠⚡
 
-This project requires effective time management and a well-planned strategy, but fear not - you've got this! Follow these steps to ensure a successful (and sane!) project outcome:
+#### **Docker Repository:**  [Link](https://hub.docker.com/repository/docker/bms6700/final/general)
 
-1. **Select a Feature**: [Choose a feature](features.md) from the provided list of additional improvements that sparks your interest and aligns with your goals like a laser beam. ✨⭐🎯 This is your chance to shine!
+# **Reflection on the Learning Journey**
 
-2. **Quality Assurance (QA)**: Thoroughly test the system's major functionalities related to your chosen feature and identify at least 5 issues or bugs like a true detective. Create GitHub issues for each identified problem, providing detailed descriptions and steps to reproduce - the more detail, the merrier! 🔍🐞🕵️‍♀️ Leave no stone unturned!
+The *Web Systems Development* course has been a transformative experience, equipping me with the knowledge and skills to tackle real-world challenges in Python programming, web development, and DevOps. Through a series of thoughtfully structured assignments and the final project, I progressed from understanding the basics of setting up a GitHub repository to building and deploying a fully functional, secure, and scalable user management system.
 
-3. **Test Coverage Improvement**: Review the existing test suite and identify gaps in test coverage like a pro. Create 10 additional tests to cover edge cases, error scenarios, and important functionalities related to your chosen feature. Focus on areas such as user registration, login, authorization, and database interactions. Simulate the setup of the system as the admin user, then creating users, and updating user accounts - leave no stone unturned, no bug left behind! ✅🧪🔍🔬 Become the master of testing!
+---
 
-4. **New Feature Implementation**: Implement your chosen feature, following the project's coding practices and architecture like a coding ninja. Write appropriate tests to ensure your new feature is functional and reliable like a rock. Document the new feature, including its usage, configuration, and any necessary migrations - future you will thank you profusely! 🚀✨📝👩‍💻⚡ Make your mark on this project!
+## **Key Learnings and Skills Acquired**
 
-5. **Maintain a Working Main Branch**: Throughout the project, ensure you always have a working main branch deploying to Docker like a well-oiled machine. This will prevent any last-minute headaches and ensure a smooth submission process - no tears allowed, only triumphs! 😊🚢⚓ Stay focused, stay victorious!
+### 1. **Python Proficiency**
+The course reinforced my Python programming skills, especially in object-oriented programming and working with libraries like FastAPI, pytest, and Docker. Implementing features like password validation, token expiry handling, and user search/filtering sharpened my problem-solving abilities.
 
-Remember, it's more important to make something work reliably and be reasonably complete than to implement an overly complex feature. Focus on creating a feature that you can build upon or demonstrate in an interview setting - show off your skills like a rockstar! 💪🚀🎓
+### 2. **Web Development Fundamentals**
+I gained practical experience designing and building RESTful APIs, working with databases, and implementing role-based access control (RBAC) to ensure secure and efficient user management. The integration of features like user profile updates, search, and filtering enhanced my understanding of modular and scalable application design.
 
-Don't forget to always have a working main branch deploying to Docker at all times. If you always have a working main branch, you will never be in jeopardy of receiving a very disappointing grade :-). Keep that main branch shining bright!
+### 3. **DevOps and CI/CD Practices**
+Deploying the project using Docker and automating testing and deployment pipelines with GitHub Actions introduced me to industry-standard DevOps workflows. Setting up containerized environments and configuring workflows improved my ability to build production-ready applications.
 
-Let's embark on this epic coding adventure together and conquer the world of software engineering! You've got this, coding rockstars! 🚀🌟✨
+### 4. **Testing and QA Practices**
+Writing comprehensive unit tests for all functionalities helped me appreciate the importance of test-driven development (TDD). It also highlighted how testing can ensure application reliability, prevent regressions, and maintain high-quality code.
 
-Test
+---
+
+## **Experience Working on the Final Project**
+
+The final project brought together all the learnings from the course, allowing me to build a robust *User Management System*. The process of debugging issues, implementing new features, and deploying the application was both challenging and rewarding.
+
+### **Challenges Overcome**
+- Fixing token expiry handling required an in-depth understanding of JWT authentication mechanisms.
+- Implementing search and filtering functionality while optimizing database queries demanded careful design and testing.
+- Deploying the system on DockerHub taught me the intricacies of containerization and image optimization.
+
+### **Accomplishments**
+- Resolved six key issues, including fixes for professional field updates, unique constraints for nicknames and emails, and workflow configurations.
+- Implemented a new feature (User Search and Filtering), which greatly improved the usability of the system for administrators.
+- The project passed all tests and was successfully deployed on DockerHub, showcasing its scalability and portability.
+
+---
+
+## **Reflections on Growth**
+
+This course has significantly enhanced my technical and professional skills. I have grown as a developer capable of designing, building, testing, and deploying production-ready systems. Working on this project gave me a deeper appreciation for teamwork, structured problem-solving, and the iterative nature of software development. 
+
+Moreover, the emphasis on industry best practices, such as using Git for version control, adhering to code standards, and leveraging CI/CD pipelines, has prepared me to excel in real-world scenarios.
+
+I am proud of what I accomplished in this course and confident in my ability to contribute meaningfully to future software engineering projects.
+
+---
+
+
+
+
+## **Final Conclusion**
+
+The *Web Systems Development* course has been a pivotal step in my journey. Through a combination of hands-on assignments and a comprehensive final project, I have developed a strong foundation in Python programming, web application development, DevOps practices, and Agile workflows. 
+
+The final project encapsulated the skills I have learned, allowing me to address real-world challenges, resolve critical issues, and deliver a feature-rich, production-ready *User Management System*. This experience has not only improved my technical abilities but also reinforced my understanding of the importance of writing clean, maintainable, and well-tested code.
+
+I leave this course with a deep appreciation for the software development lifecycle and a readiness to tackle more complex challenges in the field. The knowledge and skills gained here will undoubtedly play a significant role in shaping my professional career. Thank you for this enriching learning opportunity!
+ 
+Thank you for a course that was both challenging and immensely rewarding. The skills and knowledge I gained here will be invaluable as I continue my journey in web systems development and beyond.
+
